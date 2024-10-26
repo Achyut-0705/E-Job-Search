@@ -42,6 +42,6 @@ public class ProductController {
 
     @DeleteMapping("/product/{id}")
     public Boolean deleteProduct(@PathVariable String id) {
-        return service.deleteProduct(id);
+        return service.deleteProductById(id);
     }
 }
