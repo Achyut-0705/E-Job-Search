@@ -1,11 +1,12 @@
 package com.ecom.controller;
 
-import java.util.List;
 import com.ecom.model.User;
 import com.ecom.services.UserService;
 import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class UserController {
@@ -38,7 +39,7 @@ public class UserController {
     }
 
     @DeleteMapping("/user/{id}")
-    public boolean deleteUser(@PathVariable String id ) {
+    public boolean deleteUser(@PathVariable String id) {
         return service.deleteUserById(id);
     }
 }

@@ -1,23 +1,49 @@
 package com.ecom.services;
 
+import com.ecom.dtos.AuthUserDto;
 import com.ecom.model.User;
-import com.ecom.util.UserReponse;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AuthService {
+
     @Autowired
     private JWTService jwtService;
 
     @Autowired
     private UserService userService;
-    
-    public String login() {
-        return jwtService.generateToken();
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private ModelMapper modelMapper;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    public String login(User user) {
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        user.getEmail(),
+                        user.getPassword()
+                )
+        );
+
+        return jwtService.generateToken(user);
     }
 
-    public UserReponse register(User user) {
-        return (UserReponse) userService.createUser(user);
+    public AuthUserDto register(User user) {
+        String hashedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(hashedPassword);
+
+        User createdUser = userService.createUser(user);
+
+        return modelMapper.map(createdUser, AuthUserDto.class);
     }
 }

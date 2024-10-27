@@ -6,9 +6,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
-public class UserPrinciple implements UserDetails { private final User user;
+public class UserPrinciple implements UserDetails {
+    private final User user;
 
     public UserPrinciple(User user) {
         this.user = user;
@@ -19,7 +19,8 @@ public class UserPrinciple implements UserDetails { private final User user;
         return Collections.singleton(new SimpleGrantedAuthority("USER"));
     }
 
-    @Override public String getPassword() {
+    @Override
+    public String getPassword() {
         return this.user.getPassword();
     }
 
