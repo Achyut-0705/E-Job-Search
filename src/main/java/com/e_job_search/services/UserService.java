@@ -16,7 +16,7 @@ public class UserService {
     @Autowired
     private UserRepo repo;
 
-    public User createUser(User user) {
+    public User createUser(User user) throws Exception {
         return repo.save(user);
     }
 

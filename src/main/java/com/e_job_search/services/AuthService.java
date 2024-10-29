@@ -1,8 +1,6 @@
 package com.e_job_search.services;
 
-import com.e_job_search.dtos.AuthUserDto;
 import com.e_job_search.model.User;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -22,12 +20,9 @@ public class AuthService {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private ModelMapper modelMapper;
-
-    @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public String login(User user) {
+    public String login(User user) throws Exception {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         user.getEmail(),
@@ -38,12 +33,10 @@ public class AuthService {
         return jwtService.generateToken(user);
     }
 
-    public AuthUserDto register(User user) {
+    public User register(User user) throws Exception {
         String hashedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(hashedPassword);
 
-        User createdUser = userService.createUser(user);
-
-        return modelMapper.map(createdUser, AuthUserDto.class);
+        return userService.createUser(user);
     }
 }
