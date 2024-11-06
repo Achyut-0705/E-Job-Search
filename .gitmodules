@@ -1,0 +1,15 @@
+[submodule "User-Service"]
+	path = User-Service
+	url = git@github.com:Achyut-0705/User-Service.git
+[submodule "Job-Service"]
+	path = Job-Service
+	url = git@github.com:Achyut-0705/Job-Service.git
+[submodule "Auth-Service"]
+	path = Auth-Service
+	url = git@github.com:Achyut-0705/Auth-Service.git
+[submodule "Eureka-Server"]
+	path = Eureka-Server
+	url = git@github.com:Achyut-0705/Eureka-Server.git
+[submodule "Api-Gateway"]
+	path = Api-Gateway
+	url = git@github.com:Achyut-0705/API-Gateway.git
